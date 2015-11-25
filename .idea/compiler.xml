@@ -24,10 +24,12 @@
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="true" />
         <module name="Application" />
+        <module name="Application (1)" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="Application" target="1.6" />
+      <module name="Application (1)" target="1.6" />
     </bytecodeTargetLevel>
   </component>
 </project>
