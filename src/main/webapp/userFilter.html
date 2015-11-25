@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+  <script>
+  function userFormFiler(){
+	$('#dynamictable').empty();
+	var apiCall = buildUrl();
+	$.ajax({
+		url : apiCall,
+		type : "GET",
+		success : function(data) {
+				$('#dynamictable').append('<table></table>');
+				var table = $('#dynamictable').children();
+				table.append("<tr>");
+                $.each(data,function(key,value){
+					table.append("<td>"+nullCheck(value.firstName)+"</td>");
+					table.append("<td>"+nullCheck(value.lastName)+"</td>");
+					table.append("<td>"+nullCheck(value.profession)+"</td>");
+					table.append("<td>"+nullCheck(value.age)+"</td>");
+					table.append("<td>"+nullCheck(value.sex)+"</td>");
+					table.append("<td>"+nullCheck(value.city)+"</td>");
+				});	
+				table.append("</tr>");
+				},
+		error:function(data){
+			alert('error');
+		}
+	});
+  };
+ 
+function buildUrl(){
+	var apiCall = "user";
+	if($("#fname").val()){
+		apiCall = apiCall +"?firstname="+$("#fname").val()};
+	if($("#lname").val()){
+		apiCall = apiCall +"&lastname="+$("#lname").val()};
+	if($("#prof").val()){
+		apiCall = apiCall +"&profession="+$("#prof").val()};
+    if($("#age").val()){
+		apiCall = apiCall +"&age="+$("#age").val()};
+	if($("#sex").val()){
+		apiCall = apiCall +"&esx="+$("#sex").val()};
+	if($("#city").val()){
+		apiCall = apiCall +"&city="+$("#city").val()};	
+		
+	if(apiCall.indexOf('?') === -1){
+	   	apiCall = apiCall.replace('&', '?');
+    }	
+	return apiCall;
+}
+
+function nullCheck(property){ 
+	return (property == null) ?"":property;
+}
+</script>
+
+  <style>
+    /* Set height of the grid so .sidenav can be 100% (adjust if needed) */
+    .row.content {height: 1500px}
+    
+    /* Set gray background color and 100% height */
+    .sidenav {
+      background-color: #f1f1f1;
+      height: 100%;
+    }
+    
+    /* Set black background color, white text and some padding */
+    footer {
+      background-color: #555;
+      color: white;
+      padding: 15px;
+    }
+    
+    /* On small screens, set height to 'auto' for sidenav and grid */
+    @media screen and (max-width: 767px) {
+      .sidenav {
+        height: auto;
+        padding: 15px;
+      }
+      .row.content {height: auto;} 
+    }
+	
+	table{background:#CCC;border:1px solid #000;}
+	table td{padding:76px;border:1px solid #DDD;}
+  </style>
+</head>
+<body>
+
+<div class="container-fluid">
+<h4><u>Filter Fields</u><br><br>
+First Name: <input id ="fname" type="text" value="">
+Last Name: <input id ="lname" type="text" value="">
+Profession: <input id ="prof"" type="text" value="">
+Age<input id ="age" type="text" value="">
+Sex<input id ="sex" type="text" value="">
+City<input id ="city" type="text" value=""><br>
+<button id="sub" onClick="userFormFiler();">Submit</button>
+</div>
+<div id='dynamictable'></div> 	
+<!--<footer class="container-fluid">
+  <p>Footer Text</p>
+</footer> -->
+</body>
+</html>
